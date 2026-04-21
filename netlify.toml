@@ -1,0 +1,28 @@
+[build]
+  command = "node build-portfolio.js"
+  publish = "dist"
+
+[[redirects]]
+  from = "/exp7/*"
+  to = "/exp7/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exp8/*"
+  to = "/exp8/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exp9/*"
+  to = "/exp9/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/exp10/*"
+  to = "/exp10/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

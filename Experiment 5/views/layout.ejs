@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 5 | Backend Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <header>
+        <nav>
+            <div class="logo">Experiment <span>5</span></div>
+            <ul class="nav-links">
+                <li><a href="/products/crud" class="<%= (typeof sub === 'undefined' ? '' : (sub === '5.1' ? 'active' : '')) %>">5.1 CRUD</a></li>
+                <li><a href="/students" class="<%= (typeof sub === 'undefined' ? '' : (sub === '5.2' ? 'active' : '')) %>">5.2 MVC</a></li>
+                <li><a href="/products/analytics" class="<%= (typeof sub === 'undefined' ? '' : (sub === '5.3' ? 'active' : '')) %>">5.3 Analytics</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <div class="glass-card">
+            <% if (typeof error !== 'undefined' && error) { %>
+                <div class="alert alert-error">❌ <%= error %></div>
+            <% } %>
+            <% if (typeof success !== 'undefined' && success) { %>
+                <div class="alert alert-success">✓ <%= success %></div>
+            <% } %>
+
+            <%- body %>
+        </div>
+    </main>
+</body>
+</html>

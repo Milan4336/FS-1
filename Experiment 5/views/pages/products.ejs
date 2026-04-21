@@ -1,0 +1,86 @@
+<h1>Product Catalog</h1>
+<h2>Nested Schemas & Advanced Aggregation</h2>
+
+<div class="stats-row">
+    <div class="stat-card">
+        <span class="stat-val"><%= stats.totalCatalogStock || 0 %></span>
+        <span class="stat-label">Total Inventory</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-val"><%= stats.avgCatalogRating ? stats.avgCatalogRating.toFixed(1) : '0.0' %></span>
+        <span class="stat-label">Avg Rating</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-val">★ <%= stats.bestRating ? stats.bestRating.toFixed(1) : '-' %></span>
+        <span class="stat-label">Peak Quality</span>
+    </div>
+</div>
+
+<form action="/products" method="POST" class="form-grid">
+    <div class="form-group">
+        <label>SKU (ID)</label>
+        <input type="text" name="sku" placeholder="MAC-001" required>
+    </div>
+    <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" name="name" placeholder="MacBook Pro" required>
+    </div>
+    <div class="form-group">
+        <label>Base Price ($)</label>
+        <input type="number" name="basePrice" placeholder="1999" required step="0.01">
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" placeholder="Computers" required>
+    </div>
+    <div class="form-group">
+        <label>Initial Variant (Size)</label>
+        <input type="text" name="size" placeholder="14-inch" required>
+    </div>
+    <div class="form-group">
+        <label>Color</label>
+        <input type="text" name="color" placeholder="Space Gray" required>
+    </div>
+    <div class="form-group">
+        <label>Stock Count</label>
+        <input type="number" name="stock" placeholder="25" required>
+    </div>
+    <div class="form-group" style="justify-content: flex-end; display: flex;">
+        <button type="submit" class="btn-primary" style="background: linear-gradient(135deg, var(--secondary), #059669)">Add Product</button>
+    </div>
+</form>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Product Details</th>
+                <th>Price</th>
+                <th>Total Stock</th>
+                <th>Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(p => { %>
+                <% 
+                    const tStock = p.variants.reduce((acc, v) => acc + v.stock, 0);
+                    const avgR = p.reviews && p.reviews.length > 0 ? (p.reviews.reduce((acc, r) => acc + r.rating, 0) / p.reviews.length).toFixed(1) : '-';
+                %>
+                <tr>
+                    <td><span class="badge"><%= p.sku %></span></td>
+                    <td><strong><%= p.name %></strong><br><small style="color: var(--text-muted)"><%= p.category %></small></td>
+                    <td>$<%= p.basePrice %></td>
+                    <td><%= tStock %> Items</td>
+                    <td style="color: var(--secondary)">★ <%= avgR %></td>
+                    <td>
+                        <form action="/products/<%= p._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit" class="delete-btn">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

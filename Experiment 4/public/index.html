@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 4: Backend Hub</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="glass">
+        <nav>
+            <div class="logo">Experiment <span>4</span></div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item active" data-target="info">Setup CLI</a></li>
+                <li><a href="#" class="nav-item" data-target="cards">Card API</a></li>
+                <li><a href="#" class="nav-item" data-target="booking">Ticket Booking</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Section 1: CLI Info -->
+        <section id="info" class="experiment-section active">
+            <div class="glass-card">
+                <h2>Employee Management CLI</h2>
+                <p class="description">Sub-Experiment 4.1: Interacting with the system via Node.js terminal.</p>
+                <div class="command-box">
+                    <code>node employee-cli.js</code>
+                </div>
+                <div class="feature-list">
+                    <div class="feature">✓ Full CRUD Support</div>
+                    <div class="feature">✓ Interactive Menus (Inquirer.js)</div>
+                    <div class="feature">✓ Colored Output (Chalk)</div>
+                    <div class="feature">✓ Array-based Storage</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 2: Card API -->
+        <section id="cards" class="experiment-section">
+            <div class="glass-card">
+                <h2>RESTful Playing Card API</h2>
+                <p class="description">Sub-Experiment 4.2: Manage your collection via Express.js.</p>
+                
+                <form id="card-form" class="api-form">
+                    <input type="text" id="card-name" placeholder="Card Name (e.g. King of Clubs)" required>
+                    <input type="text" id="card-suit" placeholder="Suit">
+                    <input type="number" id="card-value" placeholder="Value">
+                    <button type="submit" class="btn-primary">Add to Collection</button>
+                </form>
+
+                <div class="card-grid" id="card-display">
+                    <!-- Cards from API -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Section 3: Ticket Booking -->
+        <section id="booking" class="experiment-section">
+            <div class="glass-card">
+                <h2>Concurrent Ticket Booking</h2>
+                <p class="description">Sub-Experiment 4.3: Demonstrating Redis-style atomic seat locking.</p>
+                
+                <div class="booking-controls">
+                    <button id="race-sim" class="btn-secondary">Simulate Race Condition</button>
+                    <span id="status-msg" class="status-indicator">Select a seat to begin...</span>
+                </div>
+
+                <div class="seat-map" id="seat-map">
+                    <!-- 20 Seats -->
+                </div>
+
+                <div class="legend">
+                    <span class="dot available"></span> Available
+                    <span class="dot locked"></span> Locked (Redis)
+                    <span class="dot booked"></span> Booked
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-glow: rgba(99, 102, 241, 0.4);
+            --secondary: #ec4899;
+            --bg-dark: #0f172a;
+            --card-bg: rgba(30, 41, 59, 0.6);
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border: rgba(255, 255, 255, 0.1);
+            --glass-blur: blur(20px);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg-dark); color: var(--text-main); min-height: 100vh; overflow-x: hidden; }
+
+        .background-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+        .blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; }
+        .blob-1 { width: 400px; height: 400px; background: var(--primary); top: -100px; right: -100px; }
+        .blob-2 { width: 300px; height: 300px; background: var(--secondary); bottom: -50px; left: -50px; }
+
+        header { background: rgba(255,255,255,0.05); backdrop-filter: var(--glass-blur); border-bottom: 1px solid var(--border); padding: 1rem 0; position: sticky; top: 0; z-index: 100; }
+        nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 0 2rem; }
+        .logo { font-size: 1.5rem; font-weight: 800; }
+        .logo span { color: var(--primary); }
+        .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+        .nav-item { text-decoration: none; color: var(--text-muted); font-weight: 600; padding: 0.5rem 1rem; border-radius: 12px; transition: 0.3s; }
+        .nav-item.active { color: var(--text-main); background: rgba(255,255,255,0.1); }
+
+        .container { max-width: 1000px; margin: 4rem auto; padding: 0 2rem; }
+        .experiment-section { display: none; }
+        .experiment-section.active { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .glass-card { background: var(--card-bg); backdrop-filter: var(--glass-blur); border: 1px solid var(--border); border-radius: 28px; padding: 2.5rem; }
+        h2 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .description { color: var(--text-muted); margin-bottom: 2rem; }
+
+        .command-box { background: #000; padding: 1rem; border-radius: 12px; color: #10b981; font-family: monospace; margin-bottom: 1.5rem; }
+        .feature-list { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .feature { color: var(--text-muted); font-weight: 600; }
+
+        .api-form { display: flex; gap: 1rem; margin-bottom: 2rem; }
+        input { flex: 1; background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 0.8rem; border-radius: 12px; color: white; outline: none; }
+        .btn-primary { background: var(--primary); color: white; border: none; padding: 0.8rem 1.5rem; border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.3s; }
+        .btn-primary:hover { background: #4f46e5; box-shadow: 0 0 15px var(--primary-glow); }
+
+        .btn-secondary { background: rgba(255, 255, 255, 0.05); color: var(--secondary); border: 1px solid var(--secondary); padding: 0.8rem 1.5rem; border-radius: 12px; cursor: pointer; font-weight: 700; transition: 0.3s; backdrop-filter: var(--glass-blur); }
+        .btn-secondary:hover { background: var(--secondary); color: white; box-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .card-item { background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 1rem; border-radius: 16px; position: relative; }
+        .card-item .del-btn { position: absolute; top: 10px; right: 10px; cursor: pointer; color: #ef4444; }
+
+        .seat-map { display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin: 2rem 0; }
+        .seat { height: 60px; background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-weight: 700; transition: 0.3s; }
+        .seat.locked { background: #eab308; border-color: #facc15; }
+        .seat.booked { background: #10b981; border-color: #34d399; }
+        .legend { display: flex; gap: 2rem; font-size: 0.8rem; color: var(--text-muted); }
+        .dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .dot.available { background: rgba(255,255,255,0.1); }
+        .dot.locked { background: #eab308; }
+        .dot.booked { background: #10b981; }
+
+        .status-indicator { font-weight: 600; color: var(--primary); margin-left:1rem;}
+    </style>
+
+    <script>
+        const userId = 'user_' + Math.floor(Math.random() * 1000);
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.onclick = (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                item.classList.add('active');
+                document.querySelectorAll('.experiment-section').forEach(s => s.classList.remove('active'));
+                document.getElementById(item.dataset.target).classList.add('active');
+            }
+        });
+
+        // --- Card API Interactivity ---
+        async function loadCards() {
+            const res = await fetch('/api/cards');
+            const data = await res.json();
+            const grid = document.getElementById('card-display');
+            grid.innerHTML = data.map(c => `
+                <div class="card-item">
+                    <h3>${c.name}</h3>
+                    <p>${c.suit}</p>
+                    <span class="del-btn" onclick="deleteCard('${c.id}')">×</span>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('card-form').onsubmit = async (e) => {
+            e.preventDefault();
+            await fetch('/api/cards', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: document.getElementById('card-name').value,
+                    suit: document.getElementById('card-suit').value,
+                    value: document.getElementById('card-value').value
+                })
+            });
+            e.target.reset();
+            loadCards();
+        };
+
+        window.deleteCard = async (id) => {
+            await fetch(`/api/cards/${id}`, { method: 'DELETE' });
+            loadCards();
+        }
+
+        // --- Booking Interactivity ---
+        async function updateSeats() {
+            const res = await fetch('/api/booking/status', { cache: 'no-store' });
+            const { lockedSeats, bookedSeats } = await res.json();
+            const map = document.getElementById('seat-map');
+            map.innerHTML = '';
+            for(let i=1; i<=20; i++) {
+                const sId = 'S'+i;
+                const isLocked = lockedSeats.includes(sId);
+                const isBooked = bookedSeats.includes(sId);
+                const div = document.createElement('div');
+                div.className = `seat ${isLocked ? 'locked' : ''} ${isBooked ? 'booked' : ''}`;
+                div.innerText = sId;
+                div.onclick = () => {
+                    console.log(`Clicked ${sId}, isBooked: ${isBooked}`);
+                    if (isBooked) {
+                        unbookSeat(sId);
+                    } else if (!isLocked) {
+                        tryBook(sId);
+                    }
+                };
+                map.appendChild(div);
+            }
+        }
+
+        async function unbookSeat(id) {
+            const status = document.getElementById('status-msg');
+            status.innerText = `Releasing seat ${id}...`;
+            const res = await fetch('/api/booking/unbook', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ seatId: id })
+            });
+            const data = await res.json();
+            status.innerText = data.message;
+            updateSeats();
+        }
+
+        async function tryBook(id) {
+            const status = document.getElementById('status-msg');
+            status.innerText = `Attempting to lock ${id}...`;
+            const res = await fetch('/api/booking/lock', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ seatId: id, userId })
+            });
+            const data = await res.json();
+            
+            if (data.success) {
+                status.innerText = `Success! Confirming booking for ${id}...`;
+                await new Promise(r => setTimeout(r, 1000)); // Dramatic pause
+                const confRes = await fetch('/api/booking/confirm', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ seatId: id, userId })
+                });
+                const confData = await confRes.json();
+                status.innerText = confData.message;
+            } else {
+                status.innerText = "❌ " + data.message;
+            }
+            updateSeats();
+        }
+
+        document.getElementById('race-sim').onclick = () => {
+            const status = document.getElementById('status-msg');
+            status.innerText = "Simulating simultaneous requests for S10...";
+            // Fire two requests at the exact same time
+            tryBook('S10');
+            setTimeout(() => tryBook('S10'), 50); // Very close together
+        };
+
+        loadCards();
+        updateSeats();
+        setInterval(updateSeats, 5000);
+    </script>
+</body>
+</html>

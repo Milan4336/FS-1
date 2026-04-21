@@ -1,0 +1,57 @@
+<h1>Student Management System</h1>
+<h2>Sub-Experiment 5.2: MVC Architecture</h2>
+
+<form action="/students" method="POST" class="form-grid">
+    <div class="form-group">
+        <label>Roll Number</label>
+        <input type="text" name="rollNo" placeholder="CS001" required>
+    </div>
+    <div class="form-group">
+        <label>Full Name</label>
+        <input type="text" name="name" placeholder="John Doe" required>
+    </div>
+    <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" name="email" placeholder="john@example.com" required>
+    </div>
+    <div class="form-group">
+        <label>Academic Course</label>
+        <select name="course">
+            <option value="Computer Science">Computer Science</option>
+            <option value="Electronic Engineering">Electronic Engineering</option>
+            <option value="Business Admin">Business Admin</option>
+        </select>
+    </div>
+    <div class="form-group" style="justify-content: flex-end; display: flex;">
+        <button type="submit" class="btn-primary">Add Student</button>
+    </div>
+</form>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Course</th>
+                <th>Joined</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% students.forEach(s => { %>
+                <tr>
+                    <td><span class="badge"><%= s.rollNo %></span></td>
+                    <td><strong><%= s.name %></strong><br><small style="color: var(--text-muted)"><%= s.email %></small></td>
+                    <td><%= s.course %></td>
+                    <td><%= new Date(s.createdAt).toLocaleDateString() %></td>
+                    <td>
+                        <form action="/students/<%= s._id %>?_method=DELETE" method="POST" style="display:inline;">
+                            <button type="submit" class="delete-btn">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

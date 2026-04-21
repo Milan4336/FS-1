@@ -1,0 +1,56 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+
+:root {
+    --primary: #6366f1;
+    --primary-glow: rgba(99, 102, 241, 0.4);
+    --secondary: #ec4899;
+    --accent: #10b981;
+    --bg-dark: #0f172a;
+    --card-bg: rgba(30, 41, 59, 0.6);
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --border: rgba(255, 255, 255, 0.1);
+    --glass-blur: blur(20px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { 
+    font-family: 'Plus Jakarta Sans', sans-serif; 
+    background: var(--bg-dark); 
+    color: var(--text-main); 
+    min-height: 100vh; 
+    overflow-x: hidden; 
+}
+
+/* Background Blobs */
+.background-blobs { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; }
+.blob { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.3; animation: drift 20s infinite alternate; }
+.blob-1 { width: 500px; height: 500px; background: var(--primary); top: -100px; right: -100px; }
+.blob-2 { width: 300px; height: 300px; background: var(--secondary); bottom: -50px; left: -50px; }
+
+@keyframes drift { from { transform: translate(0,0); } to { transform: translate(40px, 40px) scale(1.1); } }
+
+.glass-card { 
+    background: var(--card-bg); 
+    backdrop-filter: var(--glass-blur); 
+    border: 1px solid var(--border); 
+    border-radius: 32px; 
+    padding: 2.5rem; 
+    animation: fadeIn 0.8s ease; 
+}
+
+@keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+.nav-glass {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.animate-fade {
+    animation: fadeIn 1s ease-out forwards;
+}

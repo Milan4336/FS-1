@@ -1,0 +1,87 @@
+<h1>Catalog Analytics</h1>
+<h2>Sub-Experiment 5.3: Nested Schemas & Aggregation</h2>
+
+<div class="stats-row">
+    <div class="stat-card">
+        <span class="stat-val"><%= stats.totalCatalogStock || 0 %></span>
+        <span class="stat-label">Inventory Size</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-val"><%= stats.avgCatalogRating ? stats.avgCatalogRating.toFixed(1) : '0.0' %></span>
+        <span class="stat-label">Avg Quality</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-val">★ <%= stats.bestRating ? stats.bestRating.toFixed(1) : '-' %></span>
+        <span class="stat-label">Peak Rating</span>
+    </div>
+</div>
+
+<form action="/products" method="POST" class="form-grid">
+    <input type="hidden" name="from" value="analytics">
+    <div class="form-group">
+        <label>SKU</label>
+        <input type="text" name="sku" placeholder="MAC-PRO" required>
+    </div>
+    <div class="form-group">
+        <label>Product Name</label>
+        <input type="text" name="name" placeholder="Name" required>
+    </div>
+    <div class="form-group">
+        <label>Base Price</label>
+        <input type="number" name="basePrice" placeholder="1000" step="0.01" required>
+    </div>
+    <div class="form-group">
+        <label>Category</label>
+        <input type="text" name="category" placeholder="Electronics" required>
+    </div>
+    <div class="form-group">
+        <label>Variant Size</label>
+        <input type="text" name="size" placeholder="14-inch" required>
+    </div>
+    <div class="form-group">
+        <label>Color</label>
+        <input type="text" name="color" placeholder="Grey" required>
+    </div>
+    <div class="form-group">
+        <label>Stock</label>
+        <input type="number" name="stock" placeholder="50" required>
+    </div>
+    <div class="form-group" style="justify-content: flex-end; display: flex;">
+        <button type="submit" class="btn-primary" style="background: var(--secondary)">Add Variant</button>
+    </div>
+</form>
+
+<div class="table-wrapper">
+    <table>
+        <thead>
+            <tr>
+                <th>SKU</th>
+                <th>Details</th>
+                <th>Price</th>
+                <th>Inventory</th>
+                <th>Aggregation Rating</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% products.forEach(p => { %>
+                <% 
+                    const tStock = p.variants.reduce((acc, v) => acc + v.stock, 0);
+                    const avgR = p.reviews && p.reviews.length > 0 ? (p.reviews.reduce((acc, r) => acc + r.rating, 0) / p.reviews.length).toFixed(1) : '-';
+                %>
+                <tr>
+                    <td><span class="badge"><%= p.sku %></span></td>
+                    <td><strong><%= p.name %></strong><br><small style="color: var(--text-muted)"><%= p.category %></small></td>
+                    <td>$<%= p.basePrice %></td>
+                    <td><%= tStock %> Items</td>
+                    <td style="color: var(--secondary)">★ <%= avgR %></td>
+                    <td>
+                        <form action="/products/<%= p._id %>?_method=DELETE&from=analytics" method="POST" style="display:inline;">
+                            <button type="submit" class="delete-btn">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            <% }) %>
+        </tbody>
+    </table>
+</div>

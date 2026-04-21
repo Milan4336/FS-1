@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 1: Forms, Grid & Logic</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dark-theme">
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="glass">
+        <nav>
+            <div class="logo">Experiment <span>1</span></div>
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item active" data-target="registration">Registration</a></li>
+                <li><a href="#" class="nav-item" data-target="banking">Banking UI</a></li>
+                <li><a href="#" class="nav-item" data-target="admin">Admin Dashboard</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Sub-Experiment 1.1: Registration Form -->
+        <section id="registration" class="experiment-section active">
+            <div class="glass-card">
+                <h2>Student Registration</h2>
+                <p class="description">Demonstrating native HTML5 validation constraints.</p>
+                
+                <form id="reg-form" class="standard-form">
+                    <div class="form-group">
+                        <label for="name">Full Name</label>
+                        <input type="text" id="name" name="name" placeholder="John Doe" required minlength="3">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" min="16" max="100" placeholder="18" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Submit Registration</button>
+                    <p id="form-feedback" class="feedback-msg"></p>
+                </form>
+            </div>
+        </section>
+
+        <!-- Sub-Experiment 1.2: Banking Interface -->
+        <section id="banking" class="experiment-section">
+            <div class="glass-card">
+                <h2>Omen Banking</h2>
+                <p class="description">Interactive financial interface with stateful logic.</p>
+                
+                <div class="banking-header">
+                    <div class="balance-display">
+                        <label>Current Balance</label>
+                        <span id="balance">$1,000.00</span>
+                    </div>
+                </div>
+
+                <div class="banking-actions">
+                    <div class="input-group">
+                        <input type="number" id="amount" placeholder="Enter amount" min="1">
+                        <div class="btn-row">
+                            <button id="deposit-btn" class="btn-primary">Deposit</button>
+                            <button id="withdraw-btn" class="btn-secondary">Withdraw</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="transaction-history">
+                    <h3>Recent Transactions</h3>
+                    <ul id="history-list">
+                        <!-- Transactions injected by JS -->
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sub-Experiment 1.3: Admin Dashboard -->
+        <section id="admin" class="experiment-section">
+            <div class="glass-card">
+                <div class="admin-header">
+                    <div>
+                        <h2>Admin Dashboard</h2>
+                        <p class="description">Responsive layout using CSS Grid with dynamic theming.</p>
+                    </div>
+                    <button id="theme-toggle" class="btn-theme">Toggle Theme</button>
+                </div>
+
+                <div class="admin-grid">
+                    <div class="grid-item stat-card">
+                        <span class="stat-icon">👥</span>
+                        <div class="stat-info">
+                            <label>Total Users</label>
+                            <span class="stat-value">1,248</span>
+                        </div>
+                    </div>
+                    <div class="grid-item stat-card">
+                        <span class="stat-icon">💰</span>
+                        <div class="stat-info">
+                            <label>Revenue</label>
+                            <span class="stat-value">$12.5k</span>
+                        </div>
+                    </div>
+                    <div class="grid-item stat-card">
+                        <span class="stat-icon">📈</span>
+                        <div class="stat-info">
+                            <label>Growth</label>
+                            <span class="stat-value">+14%</span>
+                        </div>
+                    </div>
+                    <div class="grid-item main-chart">
+                        <h3>System Analytics</h3>
+                        <div class="chart-placeholder">
+                            <!-- Visual placeholder -->
+                            <div class="bar" style="height: 40%"></div>
+                            <div class="bar" style="height: 70%"></div>
+                            <div class="bar" style="height: 55%"></div>
+                            <div class="bar" style="height: 90%"></div>
+                        </div>
+                    </div>
+                    <div class="grid-item sidebar-content">
+                        <h3>Notifications</h3>
+                        <ul class="notif-list">
+                            <li>New user registered</li>
+                            <li>System backup complete</li>
+                            <li>Payment processed</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>

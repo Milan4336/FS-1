@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Experiment 2: Interactive Web Components</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <header class="glass">
+        <nav>
+            <div class="logo">Experiment <span>2</span></div>
+            <ul class="nav-links">
+                <li><a href="#char-counter" class="nav-item active" data-target="counter">Character Counter</a></li>
+                <li><a href="#product-filter" class="nav-item" data-target="filter">Product Filter</a></li>
+                <li><a href="#drawing-tool" class="nav-item" data-target="drawing">Drawing Tool</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <!-- Sub-Experiment 2.1: Character Counter -->
+        <section id="counter" class="experiment-section active">
+            <div class="glass-card">
+                <h2>Live Character Counter</h2>
+                <p class="description">Track your input length in real-time with visual indicators.</p>
+                <div class="input-wrapper">
+                    <textarea id="text-input" placeholder="Start typing here..."></textarea>
+                    <div class="counter-display">
+                        <div class="count-item">
+                            <span id="char-count">0</span>
+                            <label>Characters</label>
+                        </div>
+                        <div class="count-item">
+                            <span id="word-count">0</span>
+                            <label>Words</label>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progress" class="progress-fill"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sub-Experiment 2.2: Product Filter -->
+        <section id="filter" class="experiment-section">
+            <div class="glass-card">
+                <h2>Dynamic Product Filter</h2>
+                <p class="description">Filter items instantly based on their category.</p>
+                
+                <div class="filter-controls">
+                    <div class="select-wrapper">
+                        <select id="category-filter">
+                            <option value="all">All Categories</option>
+                            <option value="tech">Technology</option>
+                            <option value="lifestyle">Lifestyle</option>
+                            <option value="creative">Creative</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="product-grid" id="product-grid">
+                    <!-- Products will be injected by JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sub-Experiment 2.3: Drawing Tool -->
+        <section id="drawing" class="experiment-section">
+            <div class="glass-card">
+                <h2>Interactive SVG Drawing Tool</h2>
+                <p class="description">Sketch freely using mouse events on a vector canvas.</p>
+                
+                <div class="drawing-controls">
+                    <input type="color" id="stroke-color" value="#6366f1">
+                    <input type="range" id="stroke-width" min="1" max="20" value="5">
+                    <button id="clear-canvas" class="btn-secondary">Clear Canvas</button>
+                    <button id="download-svg" class="btn-primary">Download SVG</button>
+                </div>
+
+                <div class="canvas-wrapper">
+                    <svg id="drawing-canvas" viewBox="0 0 800 500" preserveAspectRatio="xMidYMid meet">
+                        <rect width="100%" height="100%" fill="rgba(255,255,255,0.03)" />
+                    </svg>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
