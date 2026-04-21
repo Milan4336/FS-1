@@ -121,9 +121,9 @@
 
                 document.write(exps.map(exp => `
                     <div class="col-md-6 col-lg-4">
-                        <a href="./exp${exp.id}/index.html" class="glass-card d-block h-100 p-4">
+                        <a href="/exp${exp.id}/index.html" class="glass-card d-block h-100 p-4">
                             <div class="hover-img rounded-4 mb-4 d-flex align-items-center justify-content-center h1">${exp.icon}</div>
-                            <div class="exp-number mb-2">Experiment 0${exp.id}</div>
+                            <div class="exp-number mb-2">Experiment ${String(exp.id).padStart(2, '0')}</div>
                             <h4 class="fw-bold mb-2">${exp.title}</h4>
                             <p class="text-muted small mb-0">${exp.tags}</p>
                         </a>
