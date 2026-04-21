@@ -39,9 +39,11 @@ const Login = () => {
             if (res.success) {
                 const from = location.state?.from?.pathname || '/';
                 navigate(from, { replace: true });
+            } else {
+                setApiError(res.message);
             }
         } catch (err) {
-            setApiError(err.response?.data?.message || 'Authentication failed. Incorrect email or password.');
+            setApiError('Authentication failed.');
         }
     };
 
@@ -87,10 +89,12 @@ const Login = () => {
                         Verify Identity
                     </Button>
                     
-                    <p className="text-center mt-4 text-muted small">
-                        Role-Based Access Control Active. <br />
-                        <span className="opacity-50">Authorized Personnel Only.</span>
-                    </p>
+                    <div className="mt-4 p-3 rounded-3 text-center" style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)' }}>
+                        <p className="small fw-bold mb-1" style={{ color: 'var(--primary)' }}>🎭 DEMO ACCOUNTS</p>
+                        <p className="small text-muted mb-1"><code>admin@nexus.io</code> — Admin</p>
+                        <p className="small text-muted mb-1"><code>editor@nexus.io</code> — Editor</p>
+                        <p className="small text-muted mb-0"><code>user@nexus.io</code> — User &nbsp;|&nbsp; Password: <code>demo123</code></p>
+                    </div>
                 </Form>
             </Card>
         </Container>

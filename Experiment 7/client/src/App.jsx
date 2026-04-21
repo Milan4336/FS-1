@@ -3,9 +3,10 @@ import Header from './components/Header';
 import Catalog from './pages/Catalog';
 import Cart from './components/Cart';
 import Chat from './components/Chat';
-import { io } from 'socket.io-client';
+import mockSocket from './api/mockSocket';
 
-const socket = io('http://localhost:3007');
+const socket = mockSocket;
+
 
 function App() {
     const [showCart, setShowCart] = useState(false);

@@ -72,9 +72,14 @@ const Login = () => {
                         Access Nexus
                     </Button>
 
-                    <div className="text-center mt-5">
-                        <p className="small text-muted mb-0">Secure JWT Authentication Active.</p>
-                        <p className="small text-muted opacity-50">Standard Industry Protocol Enforced.</p>
+                    <div className="text-center mt-4">
+                        <div className="p-3 rounded-3 mb-2" style={{ background: 'rgba(99,102,241,0.1)', border: '1px solid rgba(99,102,241,0.3)' }}>
+                            <p className="small fw-bold mb-1" style={{ color: 'var(--primary)' }}>🎭 DEMO ACCOUNTS</p>
+                            <p className="small text-muted mb-1"><code>shepard@nexus.io</code> — Admin</p>
+                            <p className="small text-muted mb-1"><code>garrus@nexus.io</code> — User</p>
+                            <p className="small text-muted mb-0">Password: <code>demo123</code></p>
+                        </div>
+                        <p className="small text-muted opacity-50">Data persists in your browser via localStorage.</p>
                     </div>
                 </Form>
             </Card>
