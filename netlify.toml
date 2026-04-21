@@ -1,6 +1,15 @@
 [build]
-  command = "node build-portfolio.js"
+  command = "npm install && node build-portfolio.js"
   publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+
+# SPA fallback for React experiments (must come before catch-all)
+[[redirects]]
+  from = "/exp3/*"
+  to = "/exp3/index.html"
+  status = 200
 
 [[redirects]]
   from = "/exp7/*"
@@ -22,6 +31,7 @@
   to = "/exp10/index.html"
   status = 200
 
+# Hub catch-all (MUST be last)
 [[redirects]]
   from = "/*"
   to = "/index.html"
